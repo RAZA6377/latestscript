@@ -59,6 +59,10 @@ class VoteHandler:
         path = "/home/ubuntu/dead/config.yaml"
         with open(path, "r") as file:
             data = yaml.safe_load(file)
+        if "Teams" in data["party_name"]:
+            return "teams"
+        else:
+            return "ffa"
              
     def vote_success(self):
         if self.ongoing_vote == "ffa":
