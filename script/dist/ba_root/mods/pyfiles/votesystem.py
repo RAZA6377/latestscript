@@ -3,6 +3,7 @@ import bascenev1 as bs
 import babase as ba
 import time
 from bascenev1 import chatmessage as cmsg
+import yaml
 
 
 class VoteHandler:
@@ -53,6 +54,11 @@ class VoteHandler:
              return 5
         else:
              return players - 5
+
+    def get_party_mode(self):
+        path = "/home/ubuntu/dead/config.yaml"
+        with open(path, "r") as file:
+            data = yaml.safe_load(file)
              
     def vote_success(self):
         if self.ongoing_vote == "ffa":
