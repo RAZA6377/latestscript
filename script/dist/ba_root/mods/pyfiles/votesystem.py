@@ -120,13 +120,16 @@ class VoteHandler:
                    bs.timer(60, self.end_vote, False)
         else:
             if msg.lower() == "y":
-                if str(player_info["pb"]) in self.voters:
-                    self.error("You Have Already Voted", dm=True, cid=client_id)
-                else:
-                    self.voters.append(str(player_info["pb"]))
-                    self.success(f"You Have Voted For {self.ongoing_vote[-1]}", dm=True, cid=client_id)
-                    if len(self.voters) >= self.vote_need(len(bs.get_game_roster())):
-                        self.vote_success()
+                if self.started:
+                    if str(player_info["pb"]) in self.voters:
+                        self.error("You Have Already Voted", dm=True, cid=client_id)
                     else:
-                        self.success(f"{self.vote_need(len(bs.get_game_roster() - 1)) - len(self.voters)} More Votes Needed")
+                        self.voters.append(str(player_info["pb"]))
+                        self.success(f"You Have Voted For {self.ongoing_vote[-1]}", dm=True, cid=client_id)
+                        if len(self.voters) >= self.vote_need(len(bs.get_game_roster())):
+                            self.vote_success()
+                        else:
+                            self.success(f"{self.vote_need(len(bs.get_game_roster() - 1)) - len(self.voters)} More Votes Needed")
+                else:
+                    self.error("No Vote Is Ongoing", dm=True, cid=client_id)
                         
