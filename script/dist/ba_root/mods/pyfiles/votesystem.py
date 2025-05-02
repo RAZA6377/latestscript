@@ -1,9 +1,9 @@
 import bascenev1 as bs
 import babase as ba
 import time
-from bascenev1 import chatmessage as cmsg
-from bascenev1 import broadcastmessage as bmsg
+from bascenev1 import chatmessage as cmsg, broadcastmessage as bmsg
 import yaml
+from pathlib import Path
 
 
 class VoteHandler:
@@ -58,7 +58,8 @@ class VoteHandler:
             return players - 5
 
     def get_party_mode(self):
-        path = "config.yaml"
+        folder = Path(__file__).parent
+        path = folder / "config.yaml"
         with open(path, "r") as file:
             data = yaml.safe_load(file)
         if "Teams" in data.get("party_name", ""):
